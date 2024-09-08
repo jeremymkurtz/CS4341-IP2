@@ -2,6 +2,7 @@ from Node import Node
 import sys
 import random
 import numpy as np
+from utils import *
 
 def best_first_graph_search(problem, f, display=False):
     """Search the nodes with the lowest f scores first.
