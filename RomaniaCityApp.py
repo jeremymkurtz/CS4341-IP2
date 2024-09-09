@@ -1,4 +1,23 @@
-from RomaniaMap import *
+from RomaniaMap import romania_map
+from SimpleProblemSolvingAgent import *
+from Problem import Problem, GraphProblem
+
+
+class RomaniaProblem(Problem):
+    def __init__(self, initial, goal):
+        super().__init__(initial, goal)
+    
+    def actions(self, state):
+        return romania_map.get(state)
+    
+    def result(self, state, action):
+        return romania_map.get(action)
+    
+    def goal_test(self, state): 
+        return state == self.goal
+    
+    def path_cost(self, c, state1, action, state2):
+        return romania_map.get(state1, state2)
 
 def are_valid_cities(city1, city2):
     print("Here are all the possible Romania cities that can be traveled:")
@@ -17,23 +36,30 @@ def are_valid_cities(city1, city2):
         else:
             return city1, city2
         
-def use_algorithims(city1, city2):
+def use_algorithms(city1, city2):
     switchCities = 'yes'
     while(switchCities == 'yes'):
+        problem = GraphProblem(city1, city2, romania_map)
+        SPSA = SimpleProblemSolvingAgentProgram(problem)
+        
         print("Greedy Best-First Search")
         # Use Greedy Best-First Search
+        SPSA.search(algorithm="gbfs")
         print('\n')
         
         print("A* Search")
         # Use A* Search
+        SPSA.search(algorithm="astar")
         print('\n')
         
         print("Hill Climbing Search")
         # Use Hill Climbing Search
+        SPSA.search(algorithm="hillclimbing")
         print('\n')
         
         print("Simulated Annealing Search")
         # Use Simulated Annealing
+        SPSA.search(algorithm="annealing")
         print('\n')
         
         switchCities = input("Would you like to find the best path between the other two cities?" )
@@ -50,9 +76,10 @@ def use_algorithims(city1, city2):
     
 def main():
     city1, city2 = are_valid_cities(city1=None, city2=None)
-    use_algorithims(city1, city2)
+    use_algorithms(city1, city2)
     pass
 
 
 if __name__ == '__main__':
     main()
+    
