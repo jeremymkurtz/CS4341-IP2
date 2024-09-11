@@ -19,10 +19,7 @@ class RomaniaProblem(Problem):
     def path_cost(self, c, state1, action, state2):
         return romania_map.get(state1, state2)
 
-def are_valid_cities(city1, city2):
-    print("Here are all the possible Romania cities that can be traveled:")
-    locations = romania_map.locations
-    print('\n[' + ', '.join(["'" + item + "'" for item in locations]) + ']\n')
+def are_valid_cities(city1, city2, locations):
     
     while True:
         city1 = input("Please enter the origin city: ")
@@ -83,9 +80,10 @@ def use_algorithms(city1, city2):
         
         switchCities = input("\nWould you like to find the best path between the other two cities? " )
         if(switchCities == 'yes'):
-            temp=city1
-            city1=city2
-            city2=temp
+            print()
+            city1, city2 = are_valid_cities(city1, city2, locations=romania_map.locations)
+            use_algorithms(city1, city2)
+            break
         else:
             print("\nThank You for Using Our App")
             break
@@ -94,7 +92,10 @@ def use_algorithms(city1, city2):
 
     
 def main():
-    city1, city2 = are_valid_cities(city1=None, city2=None)
+    print("Here are all the possible Romania cities that can be traveled:")
+    locations = romania_map.locations
+    print('\n[' + ', '.join(["'" + item + "'" for item in locations]) + ']\n')
+    city1, city2 = are_valid_cities(city1=None, city2=None, locations=locations)
     use_algorithms(city1, city2)
     pass
 
