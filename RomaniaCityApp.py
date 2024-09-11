@@ -22,19 +22,26 @@ class RomaniaProblem(Problem):
 def are_valid_cities(city1, city2):
     print("Here are all the possible Romania cities that can be traveled:")
     locations = romania_map.locations
-    print('[' + ', '.join(["'" + item + "'" for item in locations]) + ']')
+    print('[' + ', '.join(["'" + item + "'" for item in locations]) + ']\n')
     
     while True:
         city1 = input("Please enter the origin city: ")
         while city1 not in locations:
             city1 = input("Could not find " + city1 + ", please try again: ")
-        city2 = input("Please enter the destination city: ")
+        city2 = input("\nPlease enter the destination city: ")
         while city2 not in locations:
-            city2 = input("Could not find " + city2 + ", please try again: ")
+            city2 = input("\nCould not find " + city2 + ", please try again: ")
         if city1 == city2:
-            print("The same city can't be both origin and destination. Please try again. ")
+            print("\nThe same city can't be both origin and destination. Please try again. ")
         else:
             return city1, city2
+        
+def printWithArrows(path: list) -> None:
+    for i, item in enumerate(path):
+        print(item, end='')
+        if i != len(path) - 1:
+            print(" → ", end='')
+    print()
         
 def use_algorithms(city1, city2):
     switchCities = 'yes'
@@ -42,45 +49,45 @@ def use_algorithms(city1, city2):
         problem = GraphProblem(city1, city2, romania_map)
         SPSA = SimpleProblemSolvingAgentProgram(problem)
         
-        print("Greedy Best-First Search")
+        print("\nGreedy Best-First Search")
         # Use Greedy Best-First Search
-        gbfs =SPSA.search(algorithm="bfgs").solution()
+        gbfs = SPSA.search(algorithm="bfgs")
+        print("Total Cost:", gbfs.path_cost)
+        gbfs = gbfs.solution()
         gbfs.insert(0, city1)
-        print(gbfs)
-        print(SPSA.search(algorithm="bfgs").path_cost)
-        print('\n')
+        printWithArrows(gbfs)
         
-        print("A* Search")
+        print("\nA* Search")
         # Use A* Search
-        astar = SPSA.search(algorithm="astar").solution()
+        astar = SPSA.search(algorithm="astar")
+        print("Total Cost:", astar.path_cost)
+        astar = astar.solution()
         astar.insert(0, city1)
-        print(astar)
-        print(SPSA.search(algorithm="astar").path_cost)
-        print('\n')
+        printWithArrows(astar)
         
-        print("Hill Climbing Search")
+        print("\nHill Climbing Search")
         # Use Hill Climbing Search
-        hill_climbing = SPSA.search(algorithm="hill").solution()
+        hill_climbing = SPSA.search(algorithm="hill")
+        print("Total Cost:", hill_climbing.path_cost)
+        hill_climbing = hill_climbing.solution()
         hill_climbing.insert(0, city1)
-        print(hill_climbing)
-        print(SPSA.search(algorithm="hill").path_cost)
-        print('\n')
+        printWithArrows(hill_climbing)
         
-        print("Simulated Annealing Search")
+        print("\nSimulated Annealing Search")
         # Use Simulated Annealing
-        annealing = SPSA.search(algorithm="annealing").solution()
+        annealing = SPSA.search(algorithm="annealing")
+        print("Total Cost:", annealing.path_cost)
+        annealing = annealing.solution()
         annealing.insert(0, city1)
-        print(annealing)
-        print(SPSA.search(algorithm="annealing").path_cost)
-        print('\n')
+        printWithArrows(annealing)
         
-        switchCities = input("Would you like to find the best path between the other two cities?" )
+        switchCities = input("\nWould you like to find the best path between the other two cities? " )
         if(switchCities == 'yes'):
             temp=city1
             city1=city2
             city2=temp
         else:
-            print("Thank You for Using Our App")
+            print("\nThank You for Using Our App")
             break
         
     pass
