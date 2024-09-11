@@ -44,22 +44,34 @@ def use_algorithms(city1, city2):
         
         print("Greedy Best-First Search")
         # Use Greedy Best-First Search
-        SPSA.search(algorithm="gbfs")
+        gbfs =SPSA.search(algorithm="bfgs").solution()
+        gbfs.insert(0, city1)
+        print(gbfs)
+        print(SPSA.search(algorithm="bfgs").path_cost)
         print('\n')
         
         print("A* Search")
         # Use A* Search
-        SPSA.search(algorithm="astar")
+        astar = SPSA.search(algorithm="astar").solution()
+        astar.insert(0, city1)
+        print(astar)
+        print(SPSA.search(algorithm="astar").path_cost)
         print('\n')
         
         print("Hill Climbing Search")
         # Use Hill Climbing Search
-        SPSA.search(algorithm="hillclimbing")
+        hill_climbing = SPSA.search(algorithm="hill").solution()
+        hill_climbing.insert(0, city1)
+        print(hill_climbing)
+        print(SPSA.search(algorithm="hill").path_cost)
         print('\n')
         
         print("Simulated Annealing Search")
         # Use Simulated Annealing
-        SPSA.search(algorithm="annealing")
+        annealing = SPSA.search(algorithm="annealing").solution()
+        annealing.insert(0, city1)
+        print(annealing)
+        print(SPSA.search(algorithm="annealing").path_cost)
         print('\n')
         
         switchCities = input("Would you like to find the best path between the other two cities?" )

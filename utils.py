@@ -1,6 +1,7 @@
 import functools
 import heapq
 import random
+import numpy as np
 
 # ______________________________________________________________________________
 # argmax
@@ -110,5 +111,11 @@ class PriorityQueue:
 def probability(p):
     """Return true with probability p."""
     return p > random.uniform(0.0, 1.0)
+
+def distance(a, b):
+    """The distance between two (x, y) points."""
+    xA, yA = a
+    xB, yB = b
+    return np.hypot((xA - xB), (yA - yB))
 
 

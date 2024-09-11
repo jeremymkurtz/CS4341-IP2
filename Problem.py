@@ -1,4 +1,5 @@
-
+import numpy as np
+from utils import distance
 
 class Problem:
     """The abstract class for a formal problem. You should subclass
@@ -47,7 +48,8 @@ class Problem:
     def value(self, state):
         """For optimization problems, each state has a value. Hill Climbing
         and related algorithms try to maximize this value."""
-        raise NotImplementedError
+        locs = getattr(self.graph, 'locations', None)
+        return -1*int(distance(locs[state], locs[self.goal]))
     
 class GraphProblem(Problem):
     """The problem of searching a graph from one node to another."""
@@ -75,3 +77,14 @@ class GraphProblem(Problem):
             m = min(m, local_min)
 
         return m
+    
+    def h(self, node):
+        """h function is straight-line distance from a node's state to goal."""
+        locs = getattr(self.graph, 'locations', None)
+        if locs:
+            if type(node) is str:
+                return int(distance(locs[node], locs[self.goal]))
+
+            return int(distance(locs[node.state], locs[self.goal]))
+        else:
+            return np.inf

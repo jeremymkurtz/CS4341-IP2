@@ -55,7 +55,7 @@ def hill_climbing(problem):
         if problem.value(neighbor.state) <= problem.value(current.state):
             break
         current = neighbor
-    return current.state
+    return current
 
 def exp_schedule(k=20, lam=0.005, limit=100):
     """One possible schedule function for simulated annealing"""
@@ -68,10 +68,10 @@ def simulated_annealing(problem, schedule=exp_schedule()):
     for t in range(sys.maxsize):
         T = schedule(t)
         if T == 0:
-            return current.state
+            return current
         neighbors = current.expand(problem)
         if not neighbors:
-            return current.state
+            return current
         next_choice = random.choice(neighbors)
         delta_e = problem.value(next_choice.state) - problem.value(current.state)
         if delta_e > 0 or probability(np.exp(delta_e / T)):
