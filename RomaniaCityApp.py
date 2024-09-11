@@ -22,7 +22,7 @@ class RomaniaProblem(Problem):
 def are_valid_cities(city1, city2):
     print("Here are all the possible Romania cities that can be traveled:")
     locations = romania_map.locations
-    print('[' + ', '.join(["'" + item + "'" for item in locations]) + ']\n')
+    print('\n[' + ', '.join(["'" + item + "'" for item in locations]) + ']\n')
     
     while True:
         city1 = input("Please enter the origin city: ")
