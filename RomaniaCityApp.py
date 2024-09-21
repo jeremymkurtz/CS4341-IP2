@@ -77,16 +77,21 @@ def use_algorithms(city1, city2):
         annealing = annealing.solution()
         annealing.insert(0, city1)
         printWithArrows(annealing)
-        
-        switchCities = input("\nWould you like to find the best path between the other two cities? " )
-        if(switchCities == 'yes'):
-            print()
-            city1, city2 = are_valid_cities(city1, city2, locations=romania_map.locations)
-            use_algorithms(city1, city2)
-            break
-        else:
-            print("\nThank You for Using Our App")
-            break
+        while(True):
+            switchCities = input("\nWould you like to find the best path between the other two cities? " )
+            if(switchCities == 'yes'):
+                print()
+                city1, city2 = are_valid_cities(city1, city2, locations=romania_map.locations)
+                use_algorithms(city1, city2)
+                break
+            elif(switchCities == 'no'):
+                print("\nThank You for Using Our App")
+                break
+            else:
+                print("\nPlease enter either 'yes' or 'no'.")
+                
+                
+        break
         
     pass
 

@@ -65,6 +65,7 @@ def simulated_annealing(problem, schedule=exp_schedule()):
     """[Figure 4.5] CAUTION: This differs from the pseudocode as it
     returns a state instead of a Node."""
     current = Node(problem.initial)
+    traveledNodes = [current]
     for t in range(sys.maxsize):
         T = schedule(t)
         if T == 0:
@@ -75,4 +76,8 @@ def simulated_annealing(problem, schedule=exp_schedule()):
         next_choice = random.choice(neighbors)
         delta_e = problem.value(next_choice.state) - problem.value(current.state)
         if delta_e > 0 or probability(np.exp(delta_e / T)):
-            current = next_choice
+            if(next_choice not in traveledNodes):
+                current = next_choice
+                traveledNodes.append(next_choice)
+            else:
+                return simulated_annealing(problem, schedule=exp_schedule())
